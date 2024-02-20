@@ -3,12 +3,21 @@ const socket = require('./socket');
 const watcher = require('./watcher');
 
 module.exports = () => {
+    if(!file.isFile()) return process.exit(1);
+
     socket.init();
     watcher.init();
 
     watcher.on('change', () => {
-        file.read((data) => {
-            socket.emit("info.radio.xml.change", data);
+        const eventIsoDateTime = new Date().toISOString();
+        file.readFile((data) => {
+            socket.emit("info.radio.xml.change", {
+                data,
+                meta: {
+                    emitIsoDateTime: new Date().toISOString(),
+                    eventIsoDateTime,
+                }
+            });
         });
     });
 }

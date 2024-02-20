@@ -1,5 +1,7 @@
+const config = require("./config");
+
 module.exports = (() => {
-    if(process.env.APP_LOGS === 'true') {
+    if(config.APP_LOGS === 'true') {
         return console;
     }
     return {
