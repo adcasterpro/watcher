@@ -34,7 +34,7 @@ const readFileWithFallback = (callback) => {
     const readFile = () => {
         console.log("Reading file.");
 
-        fs.readFile(config.XML_PATH, 'utf8', (error, err, data) => {
+        fs.readFile(config.XML_PATH, 'utf8', (error, data) => {
             const json = parseXML(data);
             const debug = { readAttempts, maxAttempts, readTimeout };
 
